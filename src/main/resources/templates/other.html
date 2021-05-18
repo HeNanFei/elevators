@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>选择乘梯</title>
+    <link rel="icon" href="favicon.ico" type="image/ico">
+    <meta name="keywords" content="选择乘梯">
+    <meta name="description" content="选择乘梯">
+    <meta name="author" content="yinqi">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="/css/style.min.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="lyear-layout-web">
+    <div class="lyear-layout-container">
+
+        <!--页面主要内容-->
+        <main class="lyear-layout-content">
+
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-header"><h4>输入楼层信息</h4></div>
+                    <div class="card-body">
+
+                        <form class="form-inline" action="lyear_forms_elements.html" method="post" onsubmit="return false;">
+                            <div class="form-group">
+                                <label class="sr-only">起始楼层</label>
+                                <input class="form-control"  id="startFloor" name="example-if-email" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only">结束楼层</label>
+                                <input class="form-control"  id="endflorr" name="example-if-password" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-default" onclick="submitInfor()">乘梯</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+        </main>
+        <!--End 页面主要内容-->
+    </div>
+</div>
+
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/perfect-scrollbar.min.js"></script>
+<script type="text/javascript" src="/js/main.min.js"></script>
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script>
+    function submitInfor() {
+        var startFloor =  $('#startFloor').val();
+        var endFloor = $('#endflorr').val();
+        debugger
+        if(startFloor === null || endFloor === null){
+            alert('开始楼层或结束楼层不能为空');
+        }else{
+            $.ajax({
+                url: "http://localhost:6687/task/insertWithElevator",
+                dataType:'json',
+                type: "post",
+                data:{layer_end: endFloor,layer_start:startFloor},
+                success:function(res){
+                    alert(JSON.stringify(res));
+                    console.log(res);
+                },
+                error: function () {
+                    console.log('请求失败')
+                }
+            })
+        }
+    }
+</script>
+</body>
+</html>

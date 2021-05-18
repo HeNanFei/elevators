@@ -1,0 +1,40 @@
+spring:
+  datasource:
+#    url: jdbc:mysql://192.168.1.111:3306/elevators?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
+#    username: remoteuser
+#    password: remoteuser1@
+    url: jdbc:mysql://39.108.153.214:3306/elevators?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
+    username: elevators
+    password: 3BGjiFA4jktpdnZS
+#    url: jdbc:mysql://www.zjtb.xyz:3306/elevators?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
+#    username: root
+#    password: 008e9ed3ec92
+    hikari:
+      auto-commit: true
+      #空闲连接超时时长
+      idle-timeout: 60000
+      #连接超时时长
+      connection-timeout: 60000
+      #最大生命周期，0不过期
+      max-lifetime: 0
+      #最小空闲连接数
+      minimum-idle: 10
+      #最大连接数量
+      maximum-pool-size: 10
+
+    driver-class-name: com.mysql.jdbc.Driver
+  thymeleaf:
+    mode: HTML
+    encoding: UTF-8
+    cache: false
+    prefix:
+      classpath: /templates
+#  mvc:
+#    view:
+#      suffix: .html
+#      prefix: /
+server:
+  port: 8999
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: false

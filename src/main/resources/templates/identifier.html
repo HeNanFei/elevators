@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>人脸识别</title>
+    <link rel="icon" href="favicon.ico" type="image/ico">
+    <meta name="keywords" content="人脸识别">
+    <meta name="description" content="人脸识别">
+    <meta name="author" content="yinqi">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="/css/style.min.css" rel="stylesheet">
+    <style>
+        .lyear-wrapper {
+            position: relative;
+        }
+        .lyear-login {
+            display: flex !important;
+            min-height: 100vh;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+        .lyear-login:after{
+            content: '';
+            min-height: inherit;
+            font-size: 0;
+        }
+        .login-center {
+            background: #fff;
+            min-width: 50.25rem;
+            padding: 11.14286em 12.57143em;
+            border-radius: 3px;
+            margin: 2.85714em;
+        }
+        .login-header {
+            margin-bottom: 1.5rem !important;
+        }
+        .login-center .has-feedback.feedback-left .form-control {
+            padding-left: 38px;
+            padding-right: 12px;
+        }
+        .login-center .has-feedback.feedback-left .form-control-feedback {
+            left: 0;
+            right: auto;
+            width: 38px;
+            height: 38px;
+            line-height: 38px;
+            z-index: 4;
+            color: #dcdcdc;
+        }
+        .login-center .has-feedback.feedback-left.row .form-control-feedback {
+            left: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<hr>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Any news</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline" action="lyear_forms_elements.html" method="post" onsubmit="return false;">
+                    <div class="form-group">
+                        <label class="sr-only">起始楼层</label>
+                        <input class="form-control"  id="startFloor" name="example-if-email" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only">结束楼层</label>
+                        <input class="form-control"  id="endflorr" name="example-if-password" placeholder="">
+                    </div>
+                </form>
+                <span id="message"></span>
+            </div>
+            <div class="modal-footer">
+<!--
+                <button type="button" class="btn btn-default" data-dismiss="f">关闭</button>
+-->
+                <button type="button" class="btn btn-primary" onclick="submitInfor()">乘梯</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row lyear-wrapper" style="background-image: url(images/login-bg.jpg); background-size: cover;">
+    <div class="lyear-login">
+        <div class="login-center">
+            <div class="login-header text-center">
+            </div>
+                <a class="masonry-item" href="#">
+                    <img src="/images/gallery/6.jpg" alt="The selected child description">
+                </a>
+            <hr>
+            <div class="form-group">
+<!--
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="">认证成功点击乘梯</button>
+-->
+                <!--onclick="location.href='/view/floor'"-->
+                <button class="btn btn-block btn-primary" data-toggle="modal" data-target="#exampleModal" type="button" >人脸识别成功</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $('#exampleModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        var recipient = button.data('whatever')
+        var modal = $(this)
+        $('#message').empty();
+        modal.find('.modal-title').text('选择楼层')
+        modal.find('.modal-body input').val(recipient)
+    })
+
+    function submitInfor() {
+        var floor;
+        var startFloor =  $('#startFloor').val();
+        var endFloor = $('#endflorr').val();
+        //debugger
+        if(startFloor === null || endFloor === null){
+            alert('开始楼层或结束楼层不能为空');
+        }else{
+            $.ajax({
+                url: "http://localhost:6687/task/insertWithElevator",
+                dataType:'json',
+                type: "post",
+                data:{layer_end: endFloor,layer_start:startFloor},
+                success:function(res){
+                    debugger
+                    //$('#exampleModal').modal('hide');
+                    floor = res;
+                    //alert(JSON.stringify(res));
+                    //console.log(res);
+                    $('#message').empty();
+                    $('#message').append("请到"+floor+"乘梯")
+                },
+                error: function () {
+                    console.log('请求失败')
+                }
+            })
+
+        }
+    }
+</script></body>
+</html>
