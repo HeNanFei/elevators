@@ -38,21 +38,23 @@ public class TaskSecond {
     public void doTask(){
         int andAdd = atomicInteger.getAndAdd(1);
         synchronized (loc) {
-           // List<ElevatorInfo> elevatorInfos = elevatorMapper.selectList(new QueryWrapper<ElevatorInfo>().eq("elevator_mode", 1));
-            List<ElevatorInfo> elevatorInfos = elevatorMapper.selectList(new QueryWrapper<ElevatorInfo>());
+            List<ElevatorInfo> elevatorInfos = elevatorMapper.selectList(new QueryWrapper<ElevatorInfo>().eq("elevator_mode", 1));
+            //List<ElevatorInfo> elevatorInfos = elevatorMapper.selectList(new QueryWrapper<ElevatorInfo>());
             if (!CollectionUtils.isEmpty(elevatorInfos)) {
                 ElevatorInfo elevatorInfo = elevatorInfos.get(0);
                 System.out.println("物理电梯启动");
                 if (elevatorInfo.getStatus_updatetime() == null || Duration.between(elevatorInfo.getStatus_updatetime(), LocalDateTime.now()).getSeconds() > 45) {
                     //String url = elevatorInfos.get(i).getGet_devices_url();
-                    System.out.println("start awaking");
-                    String url = "http://39.108.153.214/admin/app/dispatch_system/elevator_itlong_single_run.php";
+                    System.out.println("start awaking——————————————————————————————————————————————");
+                    String url = "http://45.127.99.242/admin/app/dispatch_system/elevator_itlong_single_run.php";
+                    //String url = "http://45.127.99.242/admin/app/dispatch_system/elevator_itlong_single_run.php";
                     //Integer status_update_success = elevatorInfos.get(i).getStatus_update_success();
-                    HttpResponse execute = HttpRequest.get(url).timeout(2000).execute();
+                    HttpResponse execute = HttpRequest.get(url).timeout(9000).execute();
                     elevatorMapper.update(execute.body(), LocalDateTime.now(), elevatorInfos.get(0).getId());
                     System.out.println("执行时间" + LocalDateTime.now());
                     //System.out.println("执行批次"+andAdd);
                 }
+
             }
         }
         //System.out.println(elevatorInfos);

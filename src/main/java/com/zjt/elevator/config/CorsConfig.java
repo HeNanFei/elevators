@@ -45,4 +45,10 @@ public class CorsConfig {
                 new ThreadPoolExecutor.CallerRunsPolicy());
         return executor;
     }
+
+ /*   @Bean("schedulePoolExecutor")
+    public ScheduledThreadPoolExecutor scheduledThreadPoolExecutor(){
+        ScheduledThreadPoolExecutor scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(20);
+        return scheduledThreadPoolExecutor;
+    }*/
 }

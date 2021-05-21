@@ -21,4 +21,7 @@ public interface ElevatorMapper extends BaseMapper<ElevatorInfo> {
 
     @Update("update elevator_info set current_layer = #{current_layer},up_down_status = #{up_down_status} where id = #{id}")
     public void updateStatus(@Param("current_layer") Integer current_layer,@Param("up_down_status") Integer up_down_status,@Param("id") Integer id);
+
+    @Update("update elevator_info set door_status = #{door_status} where id = #{id}")
+    public void updatedoor_status(@Param("door_status") Integer door_status,@Param("id") Integer id);
 }

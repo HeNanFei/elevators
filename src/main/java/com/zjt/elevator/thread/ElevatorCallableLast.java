@@ -154,9 +154,12 @@ public class ElevatorCallableLast implements Callable<String> {
                             System.out.println("···");
                             Thread.sleep(900);
                         }
+                        elevatorInfo.setUp_down_status(0);
+                        //elevatorMapper.updateById(elevatorInfo);
+                        elevatorMapper.updateStatus(curr,0,elevatorInfo.getId());
                         //如果当前楼层有任务，开门
                         List<ElevatorKeys> exist = elevatorKeysMapper.selectList(new QueryWrapper<ElevatorKeys>().eq("layer", curr).in("layer_keys", 1).eq("elevator_id", elevatorInfo.getId()));
-                        if (!CollectionUtils.isEmpty(exist) || i == 0) {
+                        if (!CollectionUtils.isEmpty(exist) ){//|| i == 0) {
                             openTheDoor(elevatorMapper, elevatorInfo);
                             closeTheDoor(elevatorMapper, elevatorInfo);
                             Thread.sleep(500);
@@ -237,7 +240,7 @@ public class ElevatorCallableLast implements Callable<String> {
 
                     //如果当前楼层有任务，开门
                     List<ElevatorKeys> exist = elevatorKeysMapper.selectList(new QueryWrapper<ElevatorKeys>().eq("layer", curr).in("layer_keys", 1, -1).eq("elevator_id", elevatorInfo.getId()));
-                    if (!CollectionUtils.isEmpty(exist) || i == 0 ) {
+                    if (!CollectionUtils.isEmpty(exist) ){//|| i == 0 ) {
                         openTheDoor(elevatorMapper, elevatorInfo);
                         closeTheDoor(elevatorMapper, elevatorInfo);
                         //elevatorKeysMapper.updateElevator_keysInfo2(0, curr, elevatorInfo.getId());
@@ -316,8 +319,9 @@ public class ElevatorCallableLast implements Callable<String> {
     public static  void openTheDoor(ElevatorMapper elevatorMapper,ElevatorInfo elevatorInfo) throws InterruptedException {
         System.out.println("电梯门开放中.....");
         elevatorInfo.setDoor_status(1);
+        elevatorMapper.updatedoor_status(1,elevatorInfo.getId());
 
-        elevatorMapper.updateById(elevatorInfo);
+        //elevatorMapper.updateById(elevatorInfo);
         //elevatorMapper.updateStatus(elevatorInfo.getCurrent_layer(),1,elevatorInfo.getId());
 
         Thread.sleep((long) (stop_time*1000));
@@ -326,7 +330,7 @@ public class ElevatorCallableLast implements Callable<String> {
     public static  void closeTheDoor(ElevatorMapper elevatorMapper,ElevatorInfo elevatorInfo) throws InterruptedException {
         System.out.println("电梯门关闭.....");
         elevatorInfo.setDoor_status(0);
-        elevatorMapper.updateById(elevatorInfo);
+        elevatorMapper.updatedoor_status(0,elevatorInfo.getId());
         //elevatorMapper.updateStatus(elevatorInfo.getCurrent_layer(),0,elevatorInfo.getId());
 
         //Thread.sleep(5000);
