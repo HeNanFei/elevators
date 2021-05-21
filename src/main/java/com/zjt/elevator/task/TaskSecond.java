@@ -38,7 +38,7 @@ public class TaskSecond {
     public void doTask(){
         int andAdd = atomicInteger.getAndAdd(1);
         synchronized (loc) {
-            List<ElevatorInfo> elevatorInfos = elevatorMapper.selectList(new QueryWrapper<ElevatorInfo>().eq("elevator_mode", 1));
+            List<ElevatorInfo> elevatorInfos = elevatorMapper.selectList(new QueryWrapper<ElevatorInfo>().eq("elevator_mode", 0));
             //List<ElevatorInfo> elevatorInfos = elevatorMapper.selectList(new QueryWrapper<ElevatorInfo>());
             if (!CollectionUtils.isEmpty(elevatorInfos)) {
                 ElevatorInfo elevatorInfo = elevatorInfos.get(0);
