@@ -85,9 +85,25 @@ public class ElevatorCallableLast implements Callable<String> {
         int go = 0;
         curr = elevatorInfo.getCurrent_layer();
 
-        if(elevator_status.get() == null){
-            elevator_status.set("上行");
-        }
+        //if(elevator_status.get() != null){
+            List<ElevatorKeys> elevatorKeysMax22 = elevatorKeysMapper.selectList(new QueryWrapper<ElevatorKeys>().eq("elevator_id", elevatorInfo.getId()).eq("layer", curr).eq("layer_keys", 1));
+            if(!CollectionUtils.isEmpty(elevatorKeysMax22)){
+                ElevatorKeys elevatorKeys1Max = elevatorKeysMax22.stream().max(Comparator.comparing(n -> n.getLayer())).orElse(null);
+                if(elevatorKeys1Max.getLayer()>curr){
+                    elevator_status.set("上行");
+                }
+                if(elevatorKeys1Max.getLayer()<curr){
+                    elevator_status.set("下行");
+                }
+                if(elevatorKeys1Max.getLayer() == curr) {
+                    openTheDoor(elevatorMapper, elevatorInfo);
+                    closeTheDoor(elevatorMapper, elevatorInfo);
+                    elevatorKeysMapper.updateElevator_keysInfo2(0,curr,elevatorInfo.getId());
+                }
+                }else{
+                elevator_status.set("蓄势待发");
+            }
+        //}
         if(elevator_status.get() == "上行"){
             List<ElevatorKeys> elevatorKeysMax = elevatorKeysMapper.selectList(new QueryWrapper<ElevatorKeys>().eq("elevator_id", elevatorInfo.getId()).gt("layer", curr).eq("layer_keys", 1));
             ElevatorKeys elevatorKeys1Max = elevatorKeysMax.stream().max(Comparator.comparing(n -> n.getLayer())).orElse(null);
