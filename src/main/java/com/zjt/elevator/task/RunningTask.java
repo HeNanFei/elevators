@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.FutureTask;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
@@ -36,10 +38,10 @@ public class RunningTask {
         for (int i = 0; i < elevatorInfos.size(); i++) {
             ElevatorCallableLast elevatorCallableLast = new ElevatorCallableLast(elevatorInfos.get(i).getId(),elevatorMapper,elevatorKeysMapper);
             threadPoolExecutor.submit(elevatorCallableLast);
+            /*FutureTask<String> futureTask =new FutureTask<String>(elevatorCallableLast);
+            CompletableFuture<Void> completableFuture = new CompletableFuture<>();
+            completableFuture.thenRunAsync(futureTask,threadPoolExecutor).;*/
         }
-
-        /*    ElevatorCallableLast elevatorCallableLast = new ElevatorCallableLast(elevatorInfos.get(0).getId(),elevatorMapper,elevatorKeysMapper);
-            threadPoolExecutor.submit(elevatorCallableLast);*/
 
     }
 }

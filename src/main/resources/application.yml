@@ -3,8 +3,11 @@ spring:
 #    url: jdbc:mysql://192.168.1.111:3306/elevators?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
 #    username: remoteuser
 #    password: remoteuser1@
-#    url: jdbc:mysql://39.108.153.214:3306/elevators?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
-    url: jdbc:mysql://45.127.99.242:3306/elevators?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://39.108.153.214:3306/elevators?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
+#    url: jdbc:mysql://45.127.99.242:3306/elevators?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
+#    username: remoteuser
+#    password: remoteuser1@
+#    url: jdbc:mysql://45.127.99.242:3306/elevators?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
     username: elevators
     password: 3BGjiFA4jktpdnZS
 #    url: jdbc:mysql://www.zjtb.xyz:3306/elevators?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai

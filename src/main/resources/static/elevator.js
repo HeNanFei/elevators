@@ -46,7 +46,7 @@ $(function () {
 //初始化电梯
 function oneTtime(){
     $.ajax({
-        url: "http://localhost:6699/getElevators",
+        url: "http://localhost:8999/getElevators",
         dataType: "json",
         type: "get",
         data:{clientId:"name3"},
@@ -151,7 +151,7 @@ function oneTtime(){
 
 function doIt() {
     $.ajax({
-        url: "http://localhost:6699/getElevators",
+        url: "http://localhost:8999/getElevators",
         dataType: "json",
         type: "get",
         data:{clientId:"name3"},

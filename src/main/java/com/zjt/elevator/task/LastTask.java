@@ -34,7 +34,7 @@ public class LastTask {
     @Autowired
     private ApplicationContext applicationContext;
 
-    @Scheduled(cron = "0/1 * * * * ?")
+   /* @Scheduled(cron = "0/1 * * * * ?")
     public void doTask(){
         //0模拟电梯 1 物理电梯
         List<ElevatorInfo> elevator_mode = elevatorMapper.selectList(new QueryWrapper<ElevatorInfo>().eq("elevator_mode", 0));
@@ -42,6 +42,6 @@ public class LastTask {
             applicationContext.publishEvent(new ElevatorEvent(applicationContext));
         }else{
             applicationContext.publishEvent(new MockElevatorEvent(applicationContext));
-        }
-    }
+        }*/
+   // }
 }

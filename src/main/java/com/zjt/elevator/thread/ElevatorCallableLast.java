@@ -43,12 +43,12 @@ public class ElevatorCallableLast implements Callable<String> {
 
         while (true) {
             try{
-                System.out.println(elevator_status.get());
+                //System.out.println(elevator_status.get());
                 ElevatorInfo elevatorInfo = elevatorMapper.selectById(elevator_id);
                 stop_time = elevatorInfo.getTime_stop_layer();
                 int i = runUp(elevatorInfo, elevatorMapper, elevatorKeysMappe);
 
-                System.out.println("结果"+i);
+                //System.out.println("结果"+i);
                 if(elevator_status.get().equals("上行")) {
                     List<ElevatorKeys> elevatorKeys = elevatorKeysMappe.selectList(new QueryWrapper<ElevatorKeys>().eq("elevator_id", elevatorInfo.getId()).eq("layer_keys", 1).gt("layer", i));
                     if (!CollectionUtils.isEmpty(elevatorKeys)) {
@@ -71,9 +71,6 @@ public class ElevatorCallableLast implements Callable<String> {
                 if(CollectionUtils.isEmpty(elevatorKeysMappe.selectList(new QueryWrapper<ElevatorKeys>().eq("elevator_id", elevatorInfo.getId()).eq("layer_keys", 1)))){
                     elevator_status.set("蓄势待发");
                 };
-
-
-
             }catch (Exception e){e.printStackTrace();}
         }
 

@@ -40,6 +40,7 @@ public class ElevatorInfo implements Serializable {
     private String get_devices_result;
     private Integer model;
     private Integer elevator_mode;
+    private LocalDateTime status_fail_updatetime;
 
 
 

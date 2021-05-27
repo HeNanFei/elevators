@@ -42,11 +42,13 @@ public class TaskSecond {
             //List<ElevatorInfo> elevatorInfos = elevatorMapper.selectList(new QueryWrapper<ElevatorInfo>());
             if (!CollectionUtils.isEmpty(elevatorInfos)) {
                 ElevatorInfo elevatorInfo = elevatorInfos.get(0);
-                System.out.println("物理电梯启动");
-                if (elevatorInfo.getStatus_updatetime() == null || Duration.between(elevatorInfo.getStatus_updatetime(), LocalDateTime.now()).getSeconds() > 45) {
+                long seconds = Duration.between(elevatorInfo.getStatus_fail_updatetime(), LocalDateTime.now()).getSeconds();
+                System.out.println("唤醒检测间隔秒数"+seconds);
+                if (elevatorInfo.getStatus_updatetime() == null ||  seconds > 25) {
                     //String url = elevatorInfos.get(i).getGet_devices_url();
                     System.out.println("start awaking——————————————————————————————————————————————");
-                    String url = "http://45.127.99.242/admin/app/dispatch_system/elevator_itlong_single_run.php";
+                    String url =  "http://39.108.153.214/admin/app/dispatch_system/elevator_itlong_single_run.php";
+                   // String url = "http://45.127.99.242/admin/app/dispatch_system/elevator_itlong_single_run.php";
                     //String url = "http://45.127.99.242/admin/app/dispatch_system/elevator_itlong_single_run.php";
                     //Integer status_update_success = elevatorInfos.get(i).getStatus_update_success();
                     HttpResponse execute = HttpRequest.get(url).timeout(9000).execute();

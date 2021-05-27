@@ -59,7 +59,7 @@ public class ElevatorController {
     @GetMapping("/getElevators")
     @ResponseBody
     public List<ElevatorInfo> getElevators(){
-        List<ElevatorInfo> elevatorInfos = elevatorInfo.selectList(new QueryWrapper<>());
+            List<ElevatorInfo> elevatorInfos = elevatorInfo.selectList(new QueryWrapper<>());
         if(!CollectionUtils.isEmpty(elevatorInfos)){
            return elevatorInfos;
         }
